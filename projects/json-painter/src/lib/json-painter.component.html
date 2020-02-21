@@ -1,0 +1,26 @@
+<div class="json-node" *ngFor="let node of getKeys();let i = index" [id]="_parentID">
+    <input type="checkbox" name="hidden_status_{{_parentID}}" id="checkbox_{{i}}_{{_parentID}}" #hideChildren [hidden]="true">
+    <ng-container [ngSwitch]="getType(dataJSON[node])">
+        <!-- ASK TYPE -->
+        <div *ngSwitchCase="'object'" class="json-parent">
+            <!-- IS PARENT -->
+            <span (click)="_click(_parentID + node); hideChildren.checked = !hideChildren.checked" [id]="node"
+                class="json-element {{hideChildren.checked?'i-checked':''}}"><strong>{{node}} </strong></span>
+
+            <!-- IS WITHOUT CONTENT
+            <span *ngIf="isEmpty(dataJSON[node])"
+                (click)="_click(_parentID + node); hideChildren.checked = !hideChildren.checked"
+                [id]="_parentID + node" class="json-final-node">{{node}}</span> -->
+
+            <!-- IF EXIST CHILDREN -->
+            <div class="json-children" *ngIf="hideChildren.checked">
+                <da2-json-painter [dataJSON]="dataJSON[node]" [_parentID]="_parentID+node"
+                    (onClick)="_click($event)">
+                </da2-json-painter>
+            </div>
+        </div>
+        <span *ngSwitchDefault class="final-node" (click)="_click(_parentID + node)" [id]="_parentID + node"
+            class="json-final-node"><strong>{{node}}:</strong>
+            {{dataJSON[node]}}</span>
+    </ng-container>
+</div>

@@ -17,7 +17,15 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "json-painter": [
+        "dist/json-painter"
+      ],
+      "json-painter/*": [
+        "dist/json-painter/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

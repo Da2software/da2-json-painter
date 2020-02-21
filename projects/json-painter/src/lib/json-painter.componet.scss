@@ -1,0 +1,26 @@
+.json-node {
+    width: 100%;
+    .json-parent {
+        width: 100%;
+    }
+    .json-children {
+        margin-left: 5px;
+        width: 100%;
+    }
+    .json-element, .json-final-node {
+        width: 100%;
+        margin-left: 10px;
+        cursor: pointer;
+        display: inline-block;
+    }
+    // OPTIONAL
+    // .json-element.i-checked::before {
+    //     content: '- ';
+    // }
+    // .json-element::before{
+    //     content: '> ';
+    // }
+    .json-element:hover, .json-final-node:hover {
+       background-color: rgb(177, 177, 177);
+    }
+}

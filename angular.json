@@ -2,5 +2,163 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "json-painter": {
+      "projectType": "library",
+      "root": "projects/json-painter",
+      "sourceRoot": "projects/json-painter/src",
+      "prefix": "da2",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/json-painter/tsconfig.lib.json",
+            "project": "projects/json-painter/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/json-painter/src/test.ts",
+            "tsConfig": "projects/json-painter/tsconfig.spec.json",
+            "karmaConfig": "projects/json-painter/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/json-painter/tsconfig.lib.json",
+              "projects/json-painter/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "json-painter-example": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/json-painter-example",
+      "sourceRoot": "projects/json-painter-example/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/json-painter-example",
+            "index": "projects/json-painter-example/src/index.html",
+            "main": "projects/json-painter-example/src/main.ts",
+            "polyfills": "projects/json-painter-example/src/polyfills.ts",
+            "tsConfig": "projects/json-painter-example/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/json-painter-example/src/favicon.ico",
+              "projects/json-painter-example/src/assets"
+            ],
+            "styles": [
+              "projects/json-painter-example/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/json-painter-example/src/environments/environment.ts",
+                  "with": "projects/json-painter-example/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "json-painter-example:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "json-painter-example:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "json-painter-example:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/json-painter-example/src/test.ts",
+            "polyfills": "projects/json-painter-example/src/polyfills.ts",
+            "tsConfig": "projects/json-painter-example/tsconfig.spec.json",
+            "karmaConfig": "projects/json-painter-example/karma.conf.js",
+            "assets": [
+              "projects/json-painter-example/src/favicon.ico",
+              "projects/json-painter-example/src/assets"
+            ],
+            "styles": [
+              "projects/json-painter-example/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/json-painter-example/tsconfig.app.json",
+              "projects/json-painter-example/tsconfig.spec.json",
+              "projects/json-painter-example/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/json-painter-example/e2e/protractor.conf.js",
+            "devServerTarget": "json-painter-example:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "json-painter-example:serve:production"
+            }
+          }
+        }
+      }
+    }},
+  "defaultProject": "json-painter"
 }
